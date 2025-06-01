@@ -1,19 +1,28 @@
 // Initialize AOS animations
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize AOS animation library
+    // Initialize AOS animation library with mobile-friendly settings
     AOS.init({
         duration: 800,
         easing: 'ease-out',
-        once: true
+        once: true,
+        disable: 'phone' // Disable animations on mobile for better performance
     });
     
     // Mobile Navigation Toggle
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
     
     hamburger.addEventListener('click', () => {
         navLinks.classList.toggle('active');
         hamburger.classList.toggle('active');
+        
+        // Prevent body scrolling when mobile menu is open
+        if (navLinks.classList.contains('active')) {
+            body.style.overflow = 'hidden';
+        } else {
+            body.style.overflow = '';
+        }
     });
     
     // Close mobile menu when clicking on a nav link
@@ -21,18 +30,58 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');
             hamburger.classList.remove('active');
+            body.style.overflow = '';
         });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (navLinks.classList.contains('active') && 
+            !e.target.closest('.nav-links') && 
+            !e.target.closest('.hamburger')) {
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+            body.style.overflow = '';
+        }
     });
     
     // Header scroll effect
     const header = document.querySelector('header');
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
+        if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
     });
+    
+    // Detect mobile devices and adjust accordingly
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // Adjust any mobile-specific JavaScript behavior
+        document.querySelectorAll('[data-aos]').forEach(el => {
+            el.removeAttribute('data-aos');
+        });
+        
+        // Make external links open in new tabs on mobile
+        document.querySelectorAll('a[href^="http"]').forEach(link => {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+        });
+        
+        // Adjust any touch-specific events
+        const touchItems = document.querySelectorAll('.fivem-item, .unity-item, .project-card');
+        touchItems.forEach(item => {
+            item.addEventListener('touchstart', function() {
+                this.classList.add('touch-active');
+            });
+            
+            item.addEventListener('touchend', function() {
+                this.classList.remove('touch-active');
+            });
+        });
+    }
     
     // Project/FiveM/Unity item click for modal view
     const modalContainer = document.createElement('div');
@@ -54,6 +103,13 @@ document.addEventListener('DOMContentLoaded', function() {
         modalContent.innerHTML = content;
         modalContainer.classList.add('active');
         document.body.style.overflow = 'hidden';
+        
+        // Scroll to top of modal on mobile
+        if (isMobile) {
+            setTimeout(() => {
+                modal.scrollTop = 0;
+            }, 100);
+        }
     }
     
     // Function to close modal
@@ -134,10 +190,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Add scroll to top button
+    // Make scroll to top button more accessible on mobile
     const scrollTopBtn = document.createElement('button');
     scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
     scrollTopBtn.className = 'scroll-top-btn';
+    scrollTopBtn.setAttribute('aria-label', 'Scroll to top');
     document.body.appendChild(scrollTopBtn);
     
     scrollTopBtn.addEventListener('click', () => {
@@ -155,6 +212,19 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollTopBtn.classList.remove('show');
         }
     });
+    
+    // Add passive event listeners for better scroll performance on mobile
+    document.addEventListener('touchstart', function() {}, { passive: true });
+    document.addEventListener('touchmove', function() {}, { passive: true });
+    
+    // Fix iOS 100vh issue
+    function setMobileViewportHeight() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    setMobileViewportHeight();
+    window.addEventListener('resize', setMobileViewportHeight);
 });
 
 // Initialize timeline animations
