@@ -140,6 +140,9 @@ function getVisitorStats() {
                 <button type="submit" class="login-btn">Login</button>
             </form>
             <?php endif; ?>
+            <div class="back-link">
+                <a href="../index.php"><i class="fas fa-arrow-left"></i> Back to Website</a>
+            </div>
         </div>
     </div>
     <?php else: ?>
@@ -151,6 +154,7 @@ function getVisitorStats() {
             <ul class="sidebar-menu">
                 <li class="active"><a href="#"><i class="fas fa-chart-line"></i> Overview</a></li>
                 <li><a href="#visitor-logs"><i class="fas fa-users"></i> Visitor Logs</a></li>
+                <li><a href="../index.php"><i class="fas fa-home"></i> View Website</a></li>
                 <li><a href="?logout=1"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
             <div class="sidebar-footer">
