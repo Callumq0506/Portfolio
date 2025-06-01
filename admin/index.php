@@ -3,7 +3,7 @@
 session_start();
 
 // IP-based authentication
-$allowed_ip = "82.12.137.49"; // Replace with your actual IP address
+$allowed_ip = "YOUR_IP_ADDRESS"; // Replace with your actual IP address
 $current_ip = $_SERVER['REMOTE_ADDR'];
 
 // Check if user is logged in or has the allowed IP
@@ -61,7 +61,7 @@ function getVisitorLogs($limit = 100) {
     $result = $conn->query($sql);
     
     $logs = [];
-    if ($result && $result->num_rows > 0) {
+    if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $logs[] = $row;
         }
@@ -78,17 +78,17 @@ function getVisitorStats() {
     // Total visits
     $sql_total = "SELECT COUNT(*) as total FROM visitors";
     $result_total = $conn->query($sql_total);
-    $total = $result_total ? $result_total->fetch_assoc()['total'] : 0;
+    $total = $result_total->fetch_assoc()['total'];
     
     // Unique visitors
     $sql_unique = "SELECT COUNT(DISTINCT ip_address) as unique_visitors FROM visitors";
     $result_unique = $conn->query($sql_unique);
-    $unique = $result_unique ? $result_unique->fetch_assoc()['unique_visitors'] : 0;
+    $unique = $result_unique->fetch_assoc()['unique_visitors'];
     
     // Today's visits
     $sql_today = "SELECT COUNT(*) as today FROM visitors WHERE DATE(visit_time) = CURDATE()";
     $result_today = $conn->query($sql_today);
-    $today = $result_today ? $result_today->fetch_assoc()['today'] : 0;
+    $today = $result_today->fetch_assoc()['today'];
     
     $conn->close();
     
@@ -118,20 +118,6 @@ function getVisitorStats() {
             <?php if (isset($error_message)): ?>
                 <div class="error-message"><?php echo $error_message; ?></div>
             <?php endif; ?>
-            <?php if ($current_ip !== $allowed_ip): ?>
-                <div class="notice-message">
-                    <p><strong>Access Restricted</strong></p>
-                    <p>This page can only be accessed from the authorized IP address.</p>
-                    <p>Current IP: <?php echo $current_ip; ?></p>
-                    <p>To access this page:</p>
-                    <ol>
-                        <li>Edit <code>admin/index.php</code> and <code>admin/.htaccess</code></li>
-                        <li>Replace "82.12.137.49" with your actual IP address</li>
-                        <li>Set a secure password in the admin/index.php file</li>
-                        <li>Run setup_db.php first to create the database</li>
-                    </ol>
-                </div>
-            <?php else: ?>
             <form method="post" action="">
                 <div class="input-group">
                     <label for="password">Password</label>
@@ -139,7 +125,6 @@ function getVisitorStats() {
                 </div>
                 <button type="submit" class="login-btn">Login</button>
             </form>
-            <?php endif; ?>
         </div>
     </div>
     <?php else: ?>
