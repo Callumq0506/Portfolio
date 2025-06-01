@@ -1,6 +1,4 @@
-/* Mobile-specific styles */
 @media (max-width: 768px) {
-    /* Header and Navigation */
     header {
         padding: 5px 0;
     }
@@ -69,7 +67,6 @@
         transform: translateY(-8px) rotate(-45deg);
     }
     
-    /* Hero Section */
     .hero {
         padding-top: 100px;
         text-align: center;
@@ -92,7 +89,6 @@
         gap: 15px;
     }
     
-    /* About Section */
     .about-content {
         flex-direction: column;
         gap: 40px;
@@ -103,17 +99,14 @@
         max-width: 300px;
     }
     
-    /* Skills Section */
     .skills-container {
         grid-template-columns: repeat(2, 1fr);
     }
     
-    /* FiveM Section */
     .fivem-items {
         grid-template-columns: 1fr;
     }
     
-    /* Contact Section */
     .contact-content {
         flex-direction: column;
         gap: 40px;
@@ -123,7 +116,6 @@
         padding: 30px 20px;
     }
     
-    /* Footer */
     .footer-content {
         grid-template-columns: 1fr;
         text-align: center;
@@ -140,7 +132,6 @@
         justify-content: center;
     }
     
-    /* Timeline Section */
     .timeline::before {
         left: 30px;
     }
@@ -169,13 +160,11 @@
         display: inline-block;
     }
     
-    /* Improved scrolling for mobile */
     html, body {
         overflow-x: hidden;
         width: 100%;
     }
     
-    /* Make buttons easier to tap on mobile */
     .btn, 
     .fivem-item-links a,
     .unity-item-links a,
@@ -188,7 +177,6 @@
         justify-content: center;
     }
     
-    /* Fix modal scrolling issues on mobile */
     .modal {
         width: 95%;
         max-height: 85vh;
@@ -200,7 +188,6 @@
     }
 }
 
-/* Small mobile devices */
 @media (max-width: 480px) {
     .skills-container {
         grid-template-columns: 1fr;
