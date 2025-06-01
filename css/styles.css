@@ -919,30 +919,11 @@ footer {
     text-align: center;
     padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
 }
 
 .footer-bottom p {
     color: rgba(255, 255, 255, 0.5);
     font-size: 0.9rem;
-}
-
-/* Admin Login Link */
-.admin-login-link {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    color: rgba(255, 255, 255, 0.2);
-    font-size: 0.9rem;
-    transition: var(--transition);
-    padding: 5px;
-}
-
-.admin-login-link:hover {
-    color: var(--primary-color);
 }
 
 /* FiveM Section */

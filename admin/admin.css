@@ -312,23 +312,6 @@ body {
     font-family: monospace;
 }
 
-/* Back link */
-.back-link {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.back-link a {
-    color: #6c757d;
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.back-link a:hover {
-    color: var(--primary-color);
-}
-
 @media (max-width: 768px) {
     .admin-container {
         flex-direction: column;

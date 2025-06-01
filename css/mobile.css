@@ -186,18 +186,6 @@
         top: 10px;
         right: 10px;
     }
-    
-    /* Footer adjustments */
-    .footer-bottom {
-        flex-direction: column;
-        gap: 10px;
-        padding-bottom: 30px;
-    }
-    
-    .admin-login-link {
-        position: relative;
-        margin-top: 15px;
-    }
 }
 
 @media (max-width: 480px) {
